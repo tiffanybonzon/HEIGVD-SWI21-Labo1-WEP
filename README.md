@@ -16,7 +16,6 @@ __A faire en équipes de deux personnes__
 * Chiffrer manuellement des trames WEP utilisant Python et Scapy
 * Forger des fragments protégés avec WEP afin d’obtenir une keystream de longueur plus grande que 8 octets
 
-
 Vous allez devoir faire des recherches sur internet pour apprendre à utiliser Scapy. __Il est fortement conseillé d'employer une distribution Kali__ (on ne pourra pas assurer le support avec d'autres distributions). 
 
 
@@ -27,14 +26,36 @@ Vous allez devoir faire des recherches sur internet pour apprendre à utiliser S
 Dans cette partie, vous allez récupérer le script Python [manual-decryption.py](files/manual-decryption.py). Il vous faudra également le fichier de capture [arp.cap](files/arp.cap) contenant un message arp chiffré avec WEP et la librairie [rc4.py](files/rc4.py) pour générer les keystreams indispensables pour chiffrer/déchiffrer WEP. Tous les fichiers doivent être copiés dans le même répertoire local sur vos machines.
 
 - Ouvrir le fichier de capture [arp.cap](files/arp.cap) avec Wireshark
-   
+  
 - Utiliser Wireshark pour déchiffrer la capture. Pour cela, il faut configurer dans Wireshark la clé de chiffrement/déchiffrement WEP (Dans Wireshark : Preferences&rarr;Protocols&rarr;IEEE 802.11&rarr;Decryption Keys). Il faut également activer le déchiffrement dans la fenêtre IEEE 802.11 (« Enable decryption »). Vous trouverez la clé dans le script Python [manual-decryption.py](files/manual-decryption.py).
-   
+
+Nous avons procéder au déchiffrement de la capture comme demandé et identifié la trame d'exemple comme une trame ARP classique.
+
+![](img/wireshark.png)
+
 - Exécuter le script avec `python manual-decryption.py`
-   
+
+Nous avons executer le script comme affiché ci-dessous
+
+![](img/script1.png)
+
 - Comparer la sortie du script avec la capture text déchiffrée par Wireshark
-   
+
+La sortie du script (champ `text`) est identique à celle que nous voyons dans WireShark (capture ci-dessous) sous l'onglet "Decrypted WEP data".
+
+![](img/wireshark2.png)
+
+Nous n'avons pas trouvé comment vérifier l'ICV en clair depuis WireShark, cependant nous avons décidé de modifier le script en ajoutant une instruction pour afficher la valeur de `icv_encrypted` et nous avons pu constater qu'elle correspond à ce que nous indique WireShark (capture ci-dessous).
+
+![](img/wireshark3.png)
+
 - Analyser le fonctionnement du script
+
+Le fonctionnement du script est relativement straightforward, dans un premier temps ce dernier va lire la capture indiquée (`arp.cap` dans notre cas) et en extraire les trames, nous choissisons ici de nous contenter de la première.
+
+Ensuite ce dernier va récupérer la seed pour RC4 à l'aide de l'IV et de la clé ainsi que récupérer le ICV, restorer le message chiffré en concatenant les données de la trame (champ `wepdata` avec le ICV (contrôle d'intégrité)). Puis le script va procéder au déchiffrement RC4.
+
+Finalement le script va récupérer l'ICV en clair ainsi que le texte en clair dans deux variable différente ainsi que calculer l'ICV numérique afin d'afficher ces valeurs en sorties.
 
 ### 2. Chiffrement manuel de WEP
 
