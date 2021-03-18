@@ -62,10 +62,6 @@ Finalement le script va récupérer l'ICV en clair ainsi que le texte en clair d
 Utilisant le script [manual-decryption.py](files/manual-decryption.py) comme guide, créer un nouveau script `manual-encryption.py` capable de chiffrer un message, l’enregistrer dans un fichier pcap et l’envoyer.
 Vous devrez donc créer votre message, calculer le contrôle d’intégrité (ICV), et les chiffrer (voir slides du cours pour les détails).
 
-En utilisant notre script en annexe, nous avons pu créer une nouvelle trame sur la base de l'existante et l'extraire dans un fichier `arp2.cap` présent dans `files`. Ci-dessous notre capture ouverte dans WireShark.
-
-![](img/wireshark4.png)
-
 
 ### Quelques éléments à considérer :
 
@@ -74,6 +70,11 @@ En utilisant notre script en annexe, nous avons pu créer une nouvelle trame sur
 - Le champ `icv` accepte des données en format « long ».
 - Vous pouvez vous guider à partir du script fourni pour les différentes conversions de formats qui pourraient être nécessaires.
 - Vous pouvez exporter votre nouvelle trame en format pcap utilisant Scapy et ensuite, l’importer dans Wireshark. Si Wireshark est capable de déchiffrer votre trame forgée, elle est correcte !
+
+
+En utilisant notre script en annexe, nous avons pu créer une nouvelle trame sur la base de l'existante et l'extraire dans un fichier `arp2.cap` présent dans `files`. Ci-dessous notre capture ouverte dans WireShark.
+
+![](img/wireshark4.png)
 
 
 ### 3. Fragmentation
