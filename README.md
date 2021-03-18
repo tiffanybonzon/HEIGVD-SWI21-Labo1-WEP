@@ -15,7 +15,7 @@ __A faire en équipes de deux personnes__
 * Déchiffrer manuellement des trames WEP utilisant Python et Scapy
 * Chiffrer manuellement des trames WEP utilisant Python et Scapy
 * Forger des fragments protégés avec WEP afin d’obtenir une keystream de longueur plus grande que 8 octets
-
+w
 Vous allez devoir faire des recherches sur internet pour apprendre à utiliser Scapy. __Il est fortement conseillé d'employer une distribution Kali__ (on ne pourra pas assurer le support avec d'autres distributions). 
 
 
@@ -61,6 +61,10 @@ Finalement le script va récupérer l'ICV en clair ainsi que le texte en clair d
 
 Utilisant le script [manual-decryption.py](files/manual-decryption.py) comme guide, créer un nouveau script `manual-encryption.py` capable de chiffrer un message, l’enregistrer dans un fichier pcap et l’envoyer.
 Vous devrez donc créer votre message, calculer le contrôle d’intégrité (ICV), et les chiffrer (voir slides du cours pour les détails).
+
+En utilisant notre script en annexe, nous avons pu créer une nouvelle trame sur la base de l'existante et l'extraire dans un fichier `arp2.cap` présent dans `files`. Ci-dessous notre capture ouverte dans WireShark.
+
+![](img/wireshark4.png)
 
 
 ### Quelques éléments à considérer :
