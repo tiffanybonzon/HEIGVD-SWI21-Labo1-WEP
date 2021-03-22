@@ -45,7 +45,7 @@ for frag in fragments:
     # We verify if there should be more fragments
     template.FCfield.MF = (count != 2)#fragments.len)
 
-    # TODO : ?
+    # We need this for the fragment size to be calculated properly
     template[RadioTap].len = None
 
     # Finally we export the fragment to our .cap file

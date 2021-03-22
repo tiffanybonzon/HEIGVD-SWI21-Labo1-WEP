@@ -91,15 +91,11 @@ Dans cette partie, vous allez enrichir votre script développé dans la partie p
 - Pour un test encore plus intéressant (optionnel), vous pouvez utiliser un AP (disponible sur demande) et envoyer vos fragments. Pour que l’AP accepte vous données injectées, il faudra faire une « fake authentication » que vous pouvez faire avec `aireplay-ng`
 - Si l’AP accepte vos fragments, il les recomposera et les retransmettra en une seule trame non-fragmentée !
 
-Pour cette partie nous avons repris une part importante de notre script de l'étape d'envoi, simplement en ajoutant les détails nécessaires à la fragmentation. Nous avons suivi les inscrutions de la données et ajouter le champ "SC" à notre script mais également utiliser le champ FCfield, plus précisément nous avons modifié "FCfield.MF" qui correspond au flag *"More Fragments"* (voir illustration ci-dessous).
+Pour cette partie nous avons repris une part importante de notre script de l'étape d'envoi, simplement en ajoutant les détails nécessaires à la fragmentation. Nous avons suivi les instructions de la données et ajouter le champ "SC" à notre script mais également utiliser le champ FCfield, plus précisément nous avons modifié "FCfield.MF" qui correspond au flag *"More Fragments"* (voir illustration ci-dessous).
 
 ![](img/framecontrol.png)
 
-
-
-
-
-
+Nous avions des problèmes de lecture des fragments que nous avons pu corriger en ajoutant l'instruction `template[RadioTap].len = None` après avoir demandé de l'aide à un autre groupe, cette dernière permet de provoquer le recalcul de la taille du paquet et que celui-ci soit interprété correctement. 
 
 Finalement, ci-dessous la capture d'écran du résultat de l'important de notre fichier `arp3.cap` dans WireShark.
 
