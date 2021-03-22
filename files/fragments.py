@@ -43,9 +43,11 @@ for frag in fragments:
     template.icv = struct.unpack('!L', ct[-4:])[0]
     
     # We verify if there should be more fragments
-    count += 1
-    template.FCfield = (count < fragments.len)
+    template.FCfield.MF = (count != 2)#fragments.len)
+
+    # TODO : ?
+    template[RadioTap].len = None
 
     # Finally we export the fragment to our .cap file
-    wrpcap('arp2.cap', template)    
+    wrpcap('arp3.cap', template, append = True)    
     count += 1
